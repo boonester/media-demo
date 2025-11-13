@@ -1,53 +1,79 @@
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sound and video</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
-        main { max-width: 900px; margin: 0 auto; padding: 1.5rem; display: grid; gap: 2rem; }
-        section { display: grid; gap: .75rem; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>sound and video</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
+    main { max-width: 900px; margin: 0 auto; padding: 1.5rem; display: grid; gap: 2rem; }
+    section { display: grid; gap: .75rem; }
 
-    
-        video { width: 100%; height: auto; display: block; object-fit: cover; }
-        audio { width: 100%; display: block; }
+    /* media */
+    video { width: 100%; height: auto; display: block; object-fit: cover; }
+    audio { width: 100%; display: block; }
 
-    
-        .controls { display: grid; place-items: start; }
-        .media-btn { border: 0; background: transparent; padding: 0; cursor: pointer;  display: inline-grid; place-items: center;}
-        .media-btn img { width: 72px; height: 72px; display: block; }
-        .media-btn:focus-visible { outline: 3px solid #5a8dff; outline-offset: 4px; border-radius: 12px; }
-        .hint { font-size: .875rem; opacity: .75; }
+    /* custom button row */
+    .controls { display: grid; place-items: start; }
+    .media-btn {
+      border: 0; background: transparent; padding: 0; cursor: pointer;
+      display: inline-grid; place-items: center;
+    }
+    .media-btn img { width: 72px; height: 72px; display: block; }
+    .media-btn:focus-visible { outline: 3px solid #5a8dff; outline-offset: 4px; border-radius: 12px; }
+    .hint { font-size: .875rem; opacity: .75; }
   </style>
 </head>
 <body>
-    <main>
-        <section>
-            <video controls style="height:auto; width:100%;" poster="media/poster.jpg">
-            <source src="media/video.mp4" style="height: 600px;" type="video/mp4">
-        </video>
-        <div class="controls">
-            <button class="media-btn" id="video1-btn" aria-label="play video" aria-pressed="false" data-target="video1" data-type="video">
-            <img src="play.png" alt="play">
-          </button>
-          <span class="hint">click the image to play/pause</span>
-      </div>
-        </section>
-        <section>
-            <audio src="media/audio.mp3" autoplay loop></audio>
-            <div class="controls">
-             <button class="media-btn" id="audio1-btn" aria-label="play audio" aria-pressed="false" data-target="audio1" data-type="audio">
-                <img src="play.png" alt="play">
-             </button>
+  <main>
+    <!-- VIDEO -->
+    <section>
+      <video id="video1" poster="media/poster.jpg" preload="metadata" playsinline>
+        <source src="media/video.mp4" type="video/mp4" />
+        <!-- you can add more <source> types for wider codec support -->
+        sorry, your browser doesn’t support embedded videos.
+      </video>
+
+      <!-- custom play/pause image button UNDER the video -->
+      <div class="controls">
+        <button
+          class="media-btn"
+          id="video1-btn"
+          aria-label="play video"
+          aria-pressed="false"
+          data-target="video1"
+          data-type="video">
+          <img src="play.png" alt="play">
+        </button>
         <span class="hint">click the image to play/pause</span>
       </div>
-        </section>
-    </main>
-    <script>
+    </section>
+
+    <!-- AUDIO -->
+    <section>
+      <audio id="audio1" src="media/audio.mp3" preload="metadata"></audio>
+
+      <!-- custom play/pause image button UNDER the audio -->
+      <div class="controls">
+        <button
+          class="media-btn"
+          id="audio1-btn"
+          aria-label="play audio"
+          aria-pressed="false"
+          data-target="audio1"
+          data-type="audio">
+          <img src="play.png" alt="play">
+        </button>
+        <span class="hint">click the image to play/pause</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
     // set your image filenames here if different
-    const PLAY_ICON  = 'play.png';
-    const PAUSE_ICON = 'pause.png';
+    const PLAY_ICON  = 'pause.png';
+    const PAUSE_ICON = 'play.png';
 
     function wireButton(btn) {
       const media = document.getElementById(btn.dataset.target);
